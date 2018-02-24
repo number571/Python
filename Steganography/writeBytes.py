@@ -8,7 +8,7 @@ from sys import argv
 try:
 	nameFile = argv[1]
 	textFile = argv[2:]
-except:
+except IndexError:
 	print("Error: Arguments!"); raise SystemExit
 	
 with open(nameFile, 'ab') as file: 
