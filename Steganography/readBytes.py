@@ -15,8 +15,8 @@ try:
 		byte = file.read(1)
 		counter = 0 
 		while byte:
-			byte = file.read(1)
 			print(byte)
+			byte = file.read(1)
 			counter += 1
 except FileNotFoundError: 
 	print("[x] File: '{name}' is not defined!".format(name = nameFile))
