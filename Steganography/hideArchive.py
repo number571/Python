@@ -1,4 +1,10 @@
+#!/usr/bin/python3
+
 from sys import argv
+
+# chmod +x main.py
+# ./main.py file.jpg archive.zip
+
 try:
 	nameFile, archiveFile = argv[1], argv[2]
 except IndexError:
