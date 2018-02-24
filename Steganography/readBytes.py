@@ -12,6 +12,7 @@ except:
 	
 try:
 	with open(nameFile, "rb") as file:
+		byte = file.read(1)
 		counter = 0 
 		while byte:
 			byte = file.read(1)
