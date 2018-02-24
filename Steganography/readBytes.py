@@ -7,7 +7,7 @@ from sys import argv
 
 try:
 	nameFile = argv[1]
-except:
+except IndexError:
 	print("Error: arguments"); raise SystemExit
 	
 try:
