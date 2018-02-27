@@ -1,9 +1,4 @@
-mod = 26
-print(end = "Key[a] possible: ")
-for key in range(mod):
-    if (pow(int(key),2)*int(key))%mod == 1:
-        print(key, end = " ")
-print()
+print("Possible Key[a]: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25.")
 cryptMode = input("[E]ncrypt|[D]ecrypt: ").upper()
 if cryptMode not in ['E','D']:
     print("Error: mode is not Found!"); raise SystemExit
@@ -13,13 +8,11 @@ except ValueError:
     print("Only int numbers!"); raise SystemExit
 if len(mainKey) != 2:
     print("Error: qualitity keys must be 2"); raise SystemExit
-if (pow(int(mainKey[0]),2)*int(mainKey[0]))%mod != 1: 
-    print("Error: a^-1 * a != 1"); raise SystemExit
 def encryptDecrypt(mode, message, key, final = ""):
     for symbol in message:
             if mode == 'E': 
-                final += chr((int(key[0]) * ord(symbol) + int(key[1]) - 13)%mod + ord('A'))
+                final += chr((int(key[0]) * ord(symbol) + int(key[1]) - 13)%26 + ord('A'))
             else: 
-                final += chr(pow(int(key[0]),2) * ((ord(symbol) + mod - int(key[1]) - 13))%mod + ord('A'))
+                final += chr((pow(int(key[0]),11))%26 * ((ord(symbol) + 26 - int(key[1]) - 13))%26 + ord('A'))
     return final
 print("Final message:",encryptDecrypt(cryptMode, startMessage, mainKey))
