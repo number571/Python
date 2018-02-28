@@ -3,9 +3,10 @@ cryptMode = input("[E]ncrypt|[D]ecrypt: ").upper()
 if cryptMode not in ['E','D']:
     print("Error: mode is not Found!"); raise SystemExit
 startMessage = input("Write the message: ").upper()
-try: mainKey = input("Write the keys: ").split()
-except ValueError: 
-    print("Only int numbers!"); raise SystemExit
+mainKey = input("Write the keys: ").split()
+for key in mainKey:
+	try: int(key)
+	except: print("Only int numbers!"); raise SystemExit
 if len(mainKey) != 2:
     print("Error: qualitity keys must be 2"); raise SystemExit
 def encryptDecrypt(mode, message, key, final = ""):
@@ -13,6 +14,6 @@ def encryptDecrypt(mode, message, key, final = ""):
             if mode == 'E': 
                 final += chr((int(key[0]) * ord(symbol) + int(key[1]) - 13)%26 + ord('A'))
             else: 
-                final += chr((pow(int(key[0]),11))%26 * ((ord(symbol) + 26 - int(key[1]) - 13))%26 + ord('A'))
+                final += chr(pow(int(key[0]),11) * ((ord(symbol) + 26 - int(key[1]) - 13))%26 + ord('A'))
     return final
 print("Final message:",encryptDecrypt(cryptMode, startMessage, mainKey))
