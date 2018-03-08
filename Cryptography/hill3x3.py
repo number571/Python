@@ -1,6 +1,6 @@
 from re import findall
 
-alpha = tuple("ABCDEFGHIJKLMNOPQRSTUVWXYZ .?")
+alpha = tuple("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 MatrixLength = 3; MatrixMod = 26
 mainKey = "GYBNQKURP"
 
