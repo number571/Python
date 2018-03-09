@@ -12,7 +12,6 @@ for symbol in stringKey:
     if symbol in alpha: alpha.remove(symbol)
 for index, symbol in enumerate(stringKey):
     alpha.insert((numberKey+index)%26, symbol)
-print(alpha)
 def encryptDecrypt(mode, message, key, final = ""):
     for symbol in message:
         if mode == 'E':
