@@ -23,7 +23,7 @@ for symbol in startMessage:
 while len(startMessage) % matrixLength != 0: startMessage += 'Z'
 
 def regular(text):
-    template = r"[A-Z]{"+str(matrixLength)+"}"
+    template = r"[A-Z]{2}"
     return findall(template, text)
 
 def encryptDecrypt(message, matrix, summ = 0, final = ""):
