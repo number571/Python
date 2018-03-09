@@ -7,9 +7,9 @@ except ValueError: print("Only numbers!"); raise SystemExit
 alpha = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 stringKey = list(input("Write the string key: ").upper())
 for symbol in stringKey:
-    if symbol not in [chr(x) for x in range(65,91)]: stringKey.remove(symbol)
+    if symbol not in [chr(x) for x in range(65,91)] \
+    or stringKey.count(symbol) > 1: stringKey.remove(symbol)
     if symbol in alpha: alpha.remove(symbol)
-    if stringKey.count(symbol) > 1: stringKey.remove(symbol)
 for index, symbol in enumerate(stringKey):
     alpha.insert((numberKey+index)%26, symbol)
 print(alpha)
