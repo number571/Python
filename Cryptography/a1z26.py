@@ -13,6 +13,6 @@ def encryptDecrypt(mode, message, final = ""):
             final += "%hu "%(alpha.index(symbol)+1)
     else: 
         for number in regular(message):
-            final += "%s"%alpha[int(number)-1]
+            final += "%c"%alpha[int(number)-1]
     return final
 print("Final message:", encryptDecrypt(cryptMode, startMessage))
