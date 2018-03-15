@@ -11,7 +11,16 @@ switch = {
 'H':'Z', 'S':'N', 'L':'M',
 'P':'Q', 'R':'W', 'X':'Y'
 }
-def stageOne(mode, message, final = ""):
+def stageOne(message):
+	message = list(message)
+	for symbol in range(len(message)):
+		for key in switch:
+			if message[symbol] == key:
+				message[symbol] = switch[key]
+			elif message[symbol] == switch[key]:
+				message[symbol] = key
+	return "".join(message)
+def stageTwo(mode, message, final = ""):
 	X,Y,Z = 2,0,1; x,y,z = 1,2,3
 	for symbol in message:
 		rotor = rotors[X][x] + rotors[Y][y] + rotors[Z][z]
@@ -30,21 +39,12 @@ def stageOne(mode, message, final = ""):
 				if z != 25: z += 1
 				else: z = 0
 	return final
-def stageTwo(message):
-	message = list(message)
-	for symbol in range(len(message)):
-		for key in switch:
-			if message[symbol] == key:
-				message[symbol] = switch[key]
-			elif message[symbol] == switch[key]:
-				message[symbol] = key
-	return "".join(message)
 def encryptDecrypt(mode, message):
 	if mode == 'E': 
-		message = stageOne(mode, message)
-		message = stageTwo(message)
+		message = stageOne(message)
+		message = stageTwo(mode, message)
 	else: 
-		message = stageTwo(message)
-		message = stageOne(mode, message)
+		message = stageTwo(mode, message)
+		message = stageOne(message)
 	return message
 print("Final message:",encryptDecrypt(cryptMode, startMessage))
