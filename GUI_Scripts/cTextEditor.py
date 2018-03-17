@@ -11,7 +11,6 @@ from kivy.uix.textinput import TextInput
 from pygments.lexers import CLexer
 
 from os import system, popen
-from re import findall
 
 class TextEditorApp(App):
     
@@ -26,11 +25,12 @@ class TextEditorApp(App):
         try:
             with open(self.nameF.text, "w") as file:
                 file.write(self.code.text)
+        except FileNotFoundError:
+            result = "Error: file not found!"
+        else:
             system("gcc %s"%(self.nameF.text))
             for string in popen("./a.out"):
                 result += string
-        except FileNotFoundError:
-            result = "Error: file not found!"
         finally:
             self.check.text = result
 
