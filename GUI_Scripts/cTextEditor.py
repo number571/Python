@@ -15,20 +15,18 @@ from re import findall
 
 class TextEditorApp(App):
     
-    def add(self, args, switch = False):
-        filename = self.nameF.text
+    def add(self, args):
         try:
-            with open(filename) as file:
+            with open(self.nameF.text) as file:
                 self.code.text = file.read()
         except FileNotFoundError:
             self.check.text = "Error: file not found!"
                 
     def compile(self, args, result = ""):
-        filename = self.nameF.text
         try:
-            with open(filename, "w") as file:
+            with open(self.nameF.text, "w") as file:
                 file.write(self.code.text)
-            system("gcc %s"%filename)
+            system("gcc %s"%(self.nameF.text))
             for string in popen("./a.out"):
                 result += string
         except FileNotFoundError:
@@ -37,9 +35,8 @@ class TextEditorApp(App):
             self.check.text = result
 
     def save(self, args):
-        filename = self.nameF.text
         try:
-            with open(filename, "w") as file:
+            with open(self.nameF.text, "w") as file:
                 result = "Success: file saved!"
                 file.write(self.code.text)
         except FileNotFoundError:
