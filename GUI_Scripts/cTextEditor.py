@@ -48,46 +48,41 @@ class TextEditorApp(App):
             self.check.text = result
 
     def build(self):
-        self.root = BoxLayout(
-            orientation = "vertical", 
-            padding = 5)
+        root = BoxLayout(
+            orientation = "vertical", padding = 5)
 
-        self.butn = GridLayout(
+        butn = GridLayout(
             cols = 3, size_hint = [1,.07])
 
         self.nameF = TextInput(
-            text = "main.c",
-            size_hint = [1,.1],
+            text = "main.c", size_hint = [1,.1],
             background_color = [1,1,1,.5])
-        self.root.add_widget(self.nameF)
+        root.add_widget(self.nameF)
 
-        self.buttonA = Button(
-            text = 'Add File',
-            on_press = self.add)
-        self.butn.add_widget(self.buttonA)
+        buttonA = Button(
+            text = 'Add File', on_press = self.add)
+        butn.add_widget(buttonA)
 
-        self.buttonC = Button(
-            text = 'Compile File',
-            on_press = self.compile)
-        self.butn.add_widget(self.buttonC)
+        buttonC = Button(
+            text = 'Compile File', on_press = self.compile)
+        butn.add_widget(buttonC)
 
-        self.buttonS = Button(
-            text = 'Save File',
-            on_press = self.save)
-        self.butn.add_widget(self.buttonS)
+        buttonS = Button(
+            text = 'Save File', on_press = self.save)
+        butn.add_widget(buttonS)
 
-        self.root.add_widget(self.butn)
+        root.add_widget(butn)
 
         self.code = CodeInput(
-            text = "",lexer = CLexer())
-        self.root.add_widget(self.code)
+            text = "", lexer = CLexer())
+        root.add_widget(self.code)
 
         self.check = TextInput(
-            text = "",size_hint = [1,.3],
+            text = "", size_hint = [1,.3],
             background_color = [1,1,1,.5])
-        self.root.add_widget(self.check)
+        root.add_widget(self.check)
 
-        return self.root
+        return root
 
 if __name__ == '__main__':
     TextEditorApp().run()
