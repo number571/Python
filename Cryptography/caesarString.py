@@ -11,10 +11,11 @@ except ValueError: print("Error: only int number!"); raise SystemExit
 stringKey = list(input("Write the string key: ").upper())
 
 def remove(alpha, string):
-    for symbol in string: # A - Z
+    for symbol in string:
+        if symbol in alpha: alpha.remove(symbol)
+    for symbol in string:
         if symbol not in [chr(x) for x in range(65,91)] \
         or string.count(symbol) > 1: string.remove(symbol) 
-        if symbol in alpha: alpha.remove(symbol)
     return alpha, string
 
 def insert(alpha_string):
@@ -24,6 +25,7 @@ def insert(alpha_string):
 
 def encryptDecrypt(mode, message, key, final = ""):
     alpha = insert(remove(alphaList, stringKey))
+    print(alpha)
     for symbol in message:
         if mode == 'E':
             final += alpha[(alpha.index(symbol) + key)%26]
