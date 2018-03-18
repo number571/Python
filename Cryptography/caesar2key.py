@@ -6,12 +6,12 @@ alphaList = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 startMessage = input("Write the message: ").upper()
 
 try: numberKey = int(input("Write the number key: "))
-except ValueError: print("Only numbers!"); raise SystemExit
+except ValueError: print("Error: only int number!"); raise SystemExit
 
 stringKey = list(input("Write the string key: ").upper())
 
 def remove(alpha, string):
-    for symbol in string:
+    for symbol in string: # A - Z
         if symbol not in [chr(x) for x in range(65,91)] \
         or string.count(symbol) > 1: string.remove(symbol) 
         if symbol in alpha: alpha.remove(symbol)
