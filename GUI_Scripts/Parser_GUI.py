@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup
 import requests, fake_useragent
 
 class Kernel:
+    
     def mechanism(self, connection = False):
         self.textResult.text = ""
         self.textInfo.text = ""
@@ -68,20 +69,17 @@ class Kernel:
         else: return True
 
 class Parse:
+
     def runParse(self, args):
         if ParserApp.mechanism(self):
             if self.textTag.text:
-                if self.textAttribute.text:
-                    if self.textAttribute.text == "inside":
-                        for tag in self.soup.findAll(self.textTag.text):
+                for tag in self.soup.findAll(self.textTag.text):
+                    if self.textAttribute.text:
+                        if self.textAttribute.text == "inside":
                             self.textResult.text += "%s\n"%tag.text
-                    else:
-                        for tag in self.soup.findAll(self.textTag.text):
-                            try:
-                                self.textResult.text += "%s\n"%tag[self.textAttribute.text]
-                            except KeyError: pass
-                else: 
-                    for tag in self.soup.findAll(self.textTag.text):
+                        else:
+                            self.textResult.text += "%s\n"%tag[self.textAttribute.text]
+                    else: 
                         self.textResult.text += "%s\n"%str(tag)
             else: 
                 for tag in self.soup.findAll('html'):
@@ -93,30 +91,25 @@ class Parse:
     def saveParse(self, args):
         if ParserApp.mechanism(self):
             if self.nameFile.text: 
-                if self.textTag.text:
-                    if self.textAttribute.text:
-                        if self.textAttribute.text == "inside":
-                            with open(self.nameFile.text,"w") as file:
-                                for tag in self.soup.findAll(self.textTag.text):
+                with open(self.nameFile.text,"w") as file:
+                    if self.textTag.text:
+                        for tag in self.soup.findAll(self.textTag.text):
+                            if self.textAttribute.text:
+                                if self.textAttribute.text == "inside":
                                     file.write("%s\n"%tag.text)
-                        else:
-                            with open(self.nameFile.text,"w") as file:
-                                for tag in self.soup.findAll(self.textTag.text):
+                                else:
                                     file.write("%s\n"%tag[self.textAttribute.text])
-                    else:
-                        with open(self.nameFile.text,"w") as file:
-                            for tag in self.soup.findAll(self.textTag.text):
+                            else:
                                 file.write("%s\n"%str(tag))
-                else: 
-                    with open(self.nameFile.text,"w") as file:
+                    else: 
                         for tag in self.soup.findAll('html'):
                             file.write(str(tag))
-                self.textInfo.text += ":: File '%s' successfully saved."%self.nameFile.text
+                    self.textInfo.text += ":: File '%s' successfully saved."%self.nameFile.text
             else:
                 self.textInfo.text += ":: File is not saved.\n"
         else:
             self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text
-            
+
     def clear(self, args):
         self.textResult.text = ""
         self.textInfo.text = ""
