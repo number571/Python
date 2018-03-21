@@ -1,15 +1,15 @@
 from kivy.app import App
 from kivy.uix.button import Button
-from random import randint
+from random import random
 
 class ClickerApp(App):
     def click(self, args):
         self.button.text = str(int(self.button.text) + 1)
         self.button.background_color = [
-            randint(0,1),
-            randint(0,1),
-            randint(0,1),
-            randint(0,1)
+            random(),
+            random(),
+            random(),
+            random()
         ]
     def build(self):
         self.button = Button(
