@@ -112,7 +112,7 @@ class ParserApp(App):
         else:
             self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text
 
-    def clear(self):
+    def clear(self, args):
         self.textResult.text = ""
         self.textInfo.text = ""
 
@@ -126,8 +126,7 @@ class ParserApp(App):
         buttonRun = Button(
             text = "Run in the terminal",
             size_hint = [1,.07],
-            on_press = self.runParse
-            )
+            on_press = self.runParse)
         left.add_widget(buttonRun)
 
         self.textSite = TextInput(
@@ -139,47 +138,50 @@ class ParserApp(App):
         
         gridLeft = GridLayout(
             size_hint = [1,.07],
-            cols = 2
-        )
+            cols = 2)
+
         self.nameFile = TextInput(
             text = "result.txt",
-            font_size = 17
-        )
+            font_size = 17)
         gridLeft.add_widget(self.nameFile)
 
         buttonSave = Button(
             text = "Save in the file",
-            on_press = self.saveParse
-        )
-
+            on_press = self.saveParse)
         gridLeft.add_widget(buttonSave)
+
         left.add_widget(gridLeft)
+
         self.textResult = TextInput()
         left.add_widget(self.textResult)
 
         right = BoxLayout(
             orientation = "vertical",
             size_hint = [.5,1])
+
         gridRight = GridLayout(
             size_hint = [1,.22],
-            cols = 2
-        )
+            cols = 2)
 
         userAgentL = Label(
             font_size = 16,
             text = ": : User-agent : :")
+
         self.userAgentC = CheckBox(
             size_hint = [1,.33],
             active = True)
+
         gridRight.add_widget(userAgentL)
         gridRight.add_widget(self.userAgentC)
 
         torProxieL = Label(
             font_size = 16,
             text = ": : Tor-proxies : :")
+
         self.torProxieC = CheckBox(
             size_hint = [1,.33],
             active = True)
+
         gridRight.add_widget(torProxieL)
         gridRight.add_widget(self.torProxieC)
 
@@ -187,10 +189,12 @@ class ParserApp(App):
             hint_text = "Tag",
             font_size = 17,
             text = "")
+
         self.textAttribute = TextInput(
             hint_text = "Attribute",
             font_size = 17,
             text = "")
+
         gridRight.add_widget(self.textTag)
         gridRight.add_widget(self.textAttribute)
 
