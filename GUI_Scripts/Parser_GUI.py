@@ -15,9 +15,8 @@ Config.set("graphics","height","600")
 from bs4 import BeautifulSoup
 import requests, fake_useragent
 
-class ParserApp(App):
-
-    def kernel(self, connection = False):
+class Kernel:
+    def mechanism(self, connection = False):
         self.textResult.text = ""
         self.textInfo.text = ""
         if self.userAgentC.active:
@@ -68,8 +67,9 @@ class ParserApp(App):
         except: return False
         else: return True
 
+class Parse:
     def runParse(self, args):
-        if ParserApp.kernel(self):
+        if ParserApp.mechanism(self):
             if self.textTag.text:
                 if self.textAttribute.text:
                     if self.textAttribute.text == "inside":
@@ -91,7 +91,7 @@ class ParserApp(App):
             self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text     
 
     def saveParse(self, args):
-        if ParserApp.kernel(self):
+        if ParserApp.mechanism(self):
             if self.nameFile.text: 
                 if self.textTag.text:
                     if self.textAttribute.text:
@@ -116,10 +116,12 @@ class ParserApp(App):
                 self.textInfo.text += ":: File is not saved.\n"
         else:
             self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text
-
+            
     def clear(self, args):
         self.textResult.text = ""
         self.textInfo.text = ""
+
+class ParserApp(App, Kernel, Parse):
 
     def build(self):
         root = BoxLayout(
