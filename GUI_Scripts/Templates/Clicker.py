@@ -14,6 +14,7 @@ class ClickerApp(App):
     def build(self):
         self.button = Button(
             text = "0", 
+            font_size = 30,
             background_color = [1,1,1,1],
             on_press = self.click
         ) 
