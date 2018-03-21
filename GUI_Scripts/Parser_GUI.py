@@ -60,12 +60,11 @@ class ParserApp(App):
                 else:
                     page = requests.get(url)
             self.soup = BeautifulSoup(page.text, "html.parser")
-        except:
-            return
+        except: return False
+        else: return True
 
     def runParse(self, args):
-        ParserApp.kernel(self)
-        try:
+        if ParserApp.kernel(self):
             if self.textTag.text:
                 if self.textAttribute.text:
                     if self.textAttribute.text == "inside":
@@ -77,41 +76,41 @@ class ParserApp(App):
                                 self.textResult.text += "%s\n"%tag[self.textAttribute.text]
                             except KeyError: pass
                 else: 
-                        for tag in self.soup.findAll(self.textTag.text):
-                            self.textResult.text += "%s\n"%str(tag)
+                    for tag in self.soup.findAll(self.textTag.text):
+                        self.textResult.text += "%s\n"%str(tag)
             else: 
                 for tag in self.soup.findAll('html'):
                     self.textResult.text += "%s\n"%str(tag)
-        except:
-            self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text
-        else:
             self.textInfo.text += ":: Parse successfully runned."
+        else:
+            self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text     
 
     def saveParse(self, args):
-        ParserApp.kernel(self)
-        try:
-            if self.textTag.text:
-                if self.textAttribute.text:
-                    if self.textAttribute.text == "inside":
+        if ParserApp.kernel(self):
+            if self.nameFile.text: 
+                if self.textTag.text:
+                    if self.textAttribute.text:
+                        if self.textAttribute.text == "inside":
                             with open(self.nameFile.text,"w") as file:
                                 for tag in self.soup.findAll(self.textTag.text):
                                     file.write("%s\n"%tag.text)
+                        else:
+                            with open(self.nameFile.text,"w") as file:
+                                for tag in self.soup.findAll(self.textTag.text):
+                                    file.write("%s\n"%tag[self.textAttribute.text])
                     else:
                         with open(self.nameFile.text,"w") as file:
                             for tag in self.soup.findAll(self.textTag.text):
-                                file.write("%s\n"%tag[self.textAttribute.text])
-                else:
+                                file.write("%s\n"%str(tag))
+                else: 
                     with open(self.nameFile.text,"w") as file:
-                        for tag in self.soup.findAll(self.textTag.text):
-                            file.write("%s\n"%str(tag))
-            else: 
-                with open(self.nameFile.text,"w") as file:
-                    for tag in self.soup.findAll('html'):
-                        file.write(str(tag))
-        except:
-            self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text
+                        for tag in self.soup.findAll('html'):
+                            file.write(str(tag))
+                self.textInfo.text += ":: File '%s' successfully saved."%self.nameFile.text
+            else:
+                self.textInfo.text += ":: File is not saved.\n"
         else:
-            self.textInfo.text += ":: File '%s' successfully saved."%self.nameFile.text
+            self.textInfo.text += ":: Invalid URL: '%s'.\n"%self.textSite.text
 
     def clear(self):
         self.textResult.text = ""
