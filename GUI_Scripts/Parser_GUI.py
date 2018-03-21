@@ -6,9 +6,14 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.textinput import TextInput
+from kivy.config import Config
 
 from bs4 import BeautifulSoup
 import requests, fake_useragent
+
+Config.set("graphics","resizable","0")
+Config.set("graphics","width","800")
+Config.set("graphics","height","600")
 
 class ParserApp(App):
 
