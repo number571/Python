@@ -16,9 +16,9 @@ class CalculatorApp(App):
 
     def calculate(self, symbol):
         global saveInput
-        if symbol.text == '<':
+        if symbol.text is '<':
             saveInput = self.result.text = ""
-        elif symbol.text != '=':
+        elif symbol.text is not '=':
             self.result.text += symbol.text
             saveInput += symbol.text
         else:
