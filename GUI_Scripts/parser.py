@@ -117,9 +117,7 @@ class Parse:
 class ParserApp(App, Kernel, Parse):
 
     def build(self):
-        root = BoxLayout(
-            orientation = "horizontal",
-            padding = 5)
+        root = BoxLayout(orientation = "horizontal", padding = 5)
 
         left = BoxLayout(orientation = "vertical")
 
@@ -136,78 +134,48 @@ class ParserApp(App, Kernel, Parse):
             background_color = [1,1,1,.7])
         left.add_widget(self.textSite)
         
-        gridLeft = GridLayout(
-            size_hint = [1,.07],
-            cols = 2)
+        gridLeft = GridLayout(size_hint = [1,.07], cols = 2)
 
-        self.nameFile = TextInput(
-            text = "result.txt",
-            font_size = 17)
+        self.nameFile = TextInput(text = "result.txt", font_size = 17)
         gridLeft.add_widget(self.nameFile)
 
-        buttonSave = Button(
-            text = "Save in the file",
-            on_press = self.saveParse)
+        buttonSave = Button(text = "Save in the file", on_press = self.saveParse)
         gridLeft.add_widget(buttonSave)
 
         left.add_widget(gridLeft)
 
-        self.textResult = TextInput()
+        self.textResult = TextInput(readonly = True)
         left.add_widget(self.textResult)
 
-        right = BoxLayout(
-            orientation = "vertical",
-            size_hint = [.5,1])
+        right = BoxLayout(orientation = "vertical", size_hint = [.5,1])
 
-        gridRight = GridLayout(
-            size_hint = [1,.22],
-            cols = 2)
+        gridRight = GridLayout(size_hint = [1,.22], cols = 2)
 
-        userAgentL = Label(
-            font_size = 16,
-            text = ": : User-agent : :")
+        userAgentL = Label(text = ": : User-agent : :", font_size = 16)
+        torProxieL = Label(text = ": : Tor-proxies : :", font_size = 16)
 
-        self.userAgentC = CheckBox(
-            size_hint = [1,.33],
-            active = True)
+        self.userAgentC = CheckBox(size_hint = [1,.33], active = True)
+        self.torProxieC = CheckBox(size_hint = [1,.33], active = True)
 
         gridRight.add_widget(userAgentL)
         gridRight.add_widget(self.userAgentC)
 
-        torProxieL = Label(
-            font_size = 16,
-            text = ": : Tor-proxies : :")
-
-        self.torProxieC = CheckBox(
-            size_hint = [1,.33],
-            active = True)
-
         gridRight.add_widget(torProxieL)
         gridRight.add_widget(self.torProxieC)
 
-        self.textTag = TextInput(
-            hint_text = "Tag",
-            font_size = 17,
-            text = "")
+        self.textTag = TextInput(text = "", hint_text = "Tag", font_size = 17)
 
-        self.textAttribute = TextInput(
-            hint_text = "Attribute",
-            font_size = 17,
-            text = "")
+        self.textAttribute = TextInput(text = "", hint_text = "Attribute", font_size = 17)
 
         gridRight.add_widget(self.textTag)
         gridRight.add_widget(self.textAttribute)
 
         right.add_widget(gridRight)
-        self.textInfo = TextInput(
-            background_color = [1,1,1,.7])
+
+        self.textInfo = TextInput(readonly = True, background_color = [1,1,1,.7])
         right.add_widget(self.textInfo)
 
-        right.add_widget(Button(
-            size_hint = [1,.055],
-            text = "Clear",
-            on_press = self.clear)
-        )
+        right.add_widget(Button(text = "Clear", size_hint = [1,.055], on_press = self.clear))
 
         root.add_widget(left)
         root.add_widget(right)
