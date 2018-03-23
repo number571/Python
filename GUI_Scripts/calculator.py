@@ -25,7 +25,7 @@ class CalculatorApp(App):
     def build(self):
         root = BoxLayout(orientation = "vertical", padding = 5)
 
-        self.result = TextInput(text = "", font_size = 25, size_hint = [1,.7])
+        self.result = TextInput(text = "", readonly = True, font_size = 25, size_hint = [1,.7])
         root.add_widget(self.result)
 
         allButtons = GridLayout(cols = 4)
