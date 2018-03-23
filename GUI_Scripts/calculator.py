@@ -7,7 +7,7 @@ from kivy.uix.textinput import TextInput
 from kivy.config import Config
 
 Config.set("graphics", "resizable", "0")
-Config.set("graphics", "width", "250")
+Config.set("graphics", "width", "300")
 Config.set("graphics", "height", "300")
 
 saveInput = ""
