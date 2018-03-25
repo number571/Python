@@ -4,7 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.checkbox import CheckBox
+from kivy.uix.switch import Switch
 from kivy.uix.textinput import TextInput
 from kivy.config import Config
 
@@ -154,8 +154,8 @@ class ParserApp(App, Kernel, Parse):
         userAgentL = Label(text = ": : User-agent : :", font_size = 16)
         torProxieL = Label(text = ": : Tor-proxies : :", font_size = 16)
 
-        self.userAgentC = CheckBox(size_hint = [1,.33], active = True)
-        self.torProxieC = CheckBox(size_hint = [1,.33], active = True)
+        self.userAgentC = Switch(size_hint = [1,.33], active = True)
+        self.torProxieC = Switch(size_hint = [1,.33], active = True)
 
         gridRight.add_widget(userAgentL)
         gridRight.add_widget(self.userAgentC)
