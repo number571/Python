@@ -8,6 +8,11 @@ from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.textinput import TextInput
 
+from kivy.config import Config
+Config.set("graphics","resizable","0")
+Config.set("graphics","width","750")
+Config.set("graphics","height","600")
+
 from re import findall
 
 ciphers = (
@@ -102,15 +107,19 @@ class CryptographyApp(App):
         leftGrid.bind(minimum_height = leftGrid.setter('height'))
 
         self.toggle = [0 for _ in range(35)]
+
         for index in range(len(ciphers)):
+            
             self.toggle[index] = ToggleButton(
-                id = str(index), text = ciphers[index], group = 'cipher',
-                size_hint_y = None, height = 30, state = "normal")
+                id = str(index), text = ciphers[index], 
+                group = 'cipher', height = 30, 
+                state = "normal",size_hint_y = None)
             leftGrid.add_widget(self.toggle[index])
+
             leftGrid.add_widget(Button(
                 id = str(index), text = "<- Info", 
-                size_hint_y = None, height = 30, 
-                size_hint = [.4,1], on_press = self.getInfo))
+                height = 30, size_hint = [.4,1], 
+                size_hint_y = None, on_press = self.getInfo))
 
         left.add_widget(leftGrid)
 
