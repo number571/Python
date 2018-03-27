@@ -35,11 +35,11 @@ ciphers = (
     "Affine Cipher","Atbash Cipher","Bacon Cipher",
     "Book Cipher","Caesar Cipher","CaesarS Cipher",
     "Codes Cipher","Couples Cipher","DoubleCifir Cipher",
-    "Fence Cipher","Gronsfeld Cipher","Hill2x2 Cipher",
-    "Hill3x3 Cipher","Homophonic Cipher","Lattice Cipher",
-    "Playfair Cipher","Polibiy Cipher","Ports Cipher",
-    "PowVishener Cipher","Psevdo Cipher","Replace Cipher",
-    "ROT13 Cipher","Rotors Cipher","RSA Cipher",
+    "Fence Cipher","Great Cipher","Gronsfeld Cipher",
+    "Hill2x2 Cipher","Hill3x3 Cipher","Homophonic Cipher",
+    "Lattice Cipher","Playfair Cipher","Polibiy Cipher",
+    "Ports Cipher","PowVishener Cipher","Psevdo Cipher",
+    "Replace Cipher","ROT13 Cipher","Rotors Cipher","RSA Cipher",
     "Syllables Cipher","Tarabar Cipher","Trithemius Cipher",
     "Typex Cipher","Vernam Cipher","Vishener Cipher", "XOR Cipher"
 )
@@ -359,6 +359,10 @@ def fence(mode, message, final = ""):
         for index in range(half):
             final += decryptList[0][index]+decryptList[1][index]
     return final
+
+### Great Cipher ###
+def greatcipher(mode, message):
+    pass
 
 ### Gronsfeld ###
 def gronsfeld(mode, message, key, final = ""):
@@ -816,46 +820,48 @@ class CryptographyApp(App):
         elif self.toggle[12].state == 'down':
             self.result.text = fence(args.id, self.message.text)
         elif self.toggle[13].state == 'down':
-            self.result.text = gronsfeld(args.id, self.message.text, self.key.text)
+            self.result.text = greatcipher(args.id, self.message.text)
         elif self.toggle[14].state == 'down':
-            self.result.text = hill2x2(args.id, self.message.text, self.key.text)
+            self.result.text = gronsfeld(args.id, self.message.text, self.key.text)
         elif self.toggle[15].state == 'down':
-            self.result.text = hill3x3(args.id, self.message.text, self.key.text)
+            self.result.text = hill2x2(args.id, self.message.text, self.key.text)
         elif self.toggle[16].state == 'down':
-            self.result.text = homophonic(args.id, self.message.text)
+            self.result.text = hill3x3(args.id, self.message.text, self.key.text)
         elif self.toggle[17].state == 'down':
-            self.result.text = lattice(self.message.text)
+            self.result.text = homophonic(args.id, self.message.text)
         elif self.toggle[18].state == 'down':
-            self.result.text = playfair(args.id, self.message.text)
+            self.result.text = lattice(self.message.text)
         elif self.toggle[19].state == 'down':
-            self.result.text = polibiy(args.id, self.message.text)
+            self.result.text = playfair(args.id, self.message.text)
         elif self.toggle[20].state == 'down':
-            self.result.text = ports(args.id, self.message.text)
+            self.result.text = polibiy(args.id, self.message.text)
         elif self.toggle[21].state == 'down':
-            self.result.text = powVishener(args.id, self.message.text, self.key.text)
+            self.result.text = ports(args.id, self.message.text)
         elif self.toggle[22].state == 'down':
-            self.result.text = psevdo(args.id, self.message.text)
+            self.result.text = powVishener(args.id, self.message.text, self.key.text)
         elif self.toggle[23].state == 'down':
-            self.result.text = replace(args.id, self.message.text)
+            self.result.text = psevdo(args.id, self.message.text)
         elif self.toggle[24].state == 'down':
-            self.result.text = rot13(self.message.text)
+            self.result.text = replace(args.id, self.message.text)
         elif self.toggle[25].state == 'down':
-            self.result.text = rotors(args.id, self.message.text)
+            self.result.text = rot13(self.message.text)
         elif self.toggle[26].state == 'down':
-            self.result.text = rsa(args.id, self.message.text, self.key.text)
+            self.result.text = rotors(args.id, self.message.text)
         elif self.toggle[27].state == 'down':
-            self.result.text = syllables(args.id, self.message.text)
+            self.result.text = rsa(args.id, self.message.text, self.key.text)
         elif self.toggle[28].state == 'down':
-            self.result.text = tarabar(self.message.text)
+            self.result.text = syllables(args.id, self.message.text)
         elif self.toggle[29].state == 'down':
-            self.result.text = thritemius(args.id, self.message.text, self.key.text)
+            self.result.text = tarabar(self.message.text)
         elif self.toggle[30].state == 'down':
-            self.result.text = typex(args.id, self.message.text)
+            self.result.text = thritemius(args.id, self.message.text, self.key.text)
         elif self.toggle[31].state == 'down':
-            self.result.text = vernam(args.id, self.message.text, self.key.text)
+            self.result.text = typex(args.id, self.message.text)
         elif self.toggle[32].state == 'down':
-            self.result.text = vishener(args.id, self.message.text, self.key.text)
+            self.result.text = vernam(args.id, self.message.text, self.key.text)
         elif self.toggle[33].state == 'down':
+            self.result.text = vishener(args.id, self.message.text, self.key.text)
+        elif self.toggle[34].state == 'down':
             self.result.text = xor(self.message.text, self.key.text)
 
     def getInfo(self, args):
@@ -882,27 +888,28 @@ Encrypt/Decrypt: A = Z, B = X, C = Y, ... X = 24, C = B, Z = A.", # Atbash
             '10':"", # Couples
             '11':"", # Double Cifir
             '12':"", # Fence
-            '13':"", # Gronsfeld
-            '14':"", # Hill[2x2]
-            '15':"", # Hill[3x3]
-            '16':"", # Homophonic
-            '17':"", # Lattice
-            '18':"", # PlayFair
-            '19':"", # Polibiy
-            '20':"", # Ports
-            '21':"", # PowVishener
-            '22':"", # Psevdo
-            '23':"", # Replace
-            '24':"", # ROT13
-            '25':"", # Rotors
-            '26':"", # RSA
-            '27':"", # Syllables
-            '28':"", # Tarabar
-            '29':"", # Thritemius
-            '30':"", # Typex
-            '31':"", # Vernam
-            '32':"", # Vishener
-            '33':"" # XOR
+            '13':"", # Greatcipher
+            '14':"", # Gronsfeld
+            '15':"", # Hill[2x2]
+            '16':"", # Hill[3x3]
+            '17':"", # Homophonic
+            '18':"", # Lattice
+            '19':"", # PlayFair
+            '20':"", # Polibiy
+            '21':"", # Ports
+            '22':"", # PowVishener
+            '23':"", # Psevdo
+            '24':"", # Replace
+            '25':"", # ROT13
+            '26':"", # Rotors
+            '27':"", # RSA
+            '28':"", # Syllables
+            '29':"", # Tarabar
+            '30':"", # Thritemius
+            '31':"", # Typex
+            '32':"", # Vernam
+            '33':"", # Vishener
+            '34':"" # XOR
         }
         self.result.text = info[args.id]
 
