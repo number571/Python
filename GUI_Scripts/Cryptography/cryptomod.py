@@ -241,7 +241,7 @@ def caesarS_remove(alpha, string):
 
 def caesarS_insert(alpha_string, key):
     for index, symbol in enumerate(alpha_string[1]):
-        alpha_string[0].insert((+index)%26, symbol)
+        alpha_string[0].insert((key+index)%26, symbol)
     return alpha_string[0]
 
 def caesarS(mode, message, key, final = "", alpha = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")):
