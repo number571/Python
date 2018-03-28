@@ -59,8 +59,10 @@ def adfgvx_stageOne(mode, message, final = ""):
 def adfgvx_stageTwo(mode, keyStageTwo, message, final = ""):
     listCutWords = []
     if mode == 'E':
-        while len(message) % len(keyStageTwo) != 0:
-            message += 'XX'
+        try:
+            while len(message) % len(keyStageTwo) != 0:
+                message += 'XX'
+        except: return ":: Key not found."
         lengthList = len(message) // len(keyStageTwo)
         for _ in range(lengthList):
             listCutWords.append([])
@@ -142,8 +144,8 @@ def affine(mode, message, key, final = ""):
     key = key.split()
     for k in key:
         try: int(k)
-        except: return "Only int numbers!"
-    if len(key) != 2: return "Error: qualitity keys must be 2"
+        except: return ":: Only int numbers."
+    if len(key) != 2: return ":: Qualitity keys must be 2."
     for symbol in message:
             if mode == 'E': 
                 final += chr((int(key[0]) * ord(symbol) + int(key[1]) - 13)%26 + ord('A'))
@@ -189,19 +191,17 @@ def bacon(mode, message, final = ""):
 
 ### Book ###
 def book(mode, message, key, final = ""):
-    with open(key) as bookKey:
-        book = bookKey.read()
     if mode == 'E':
         for symbolMessage in message:
             listIndexKey = []
-            for indexKey, symbolKey in enumerate(book):
+            for indexKey, symbolKey in enumerate(key):
                 if symbolMessage == symbolKey:
                     listIndexKey.append(indexKey)
             try:final += str(choice(listIndexKey)) + '/'
             except IndexError: pass
     else:
         for numbers in getNumbers(message):
-            for indexKey, symbolKey in enumerate(book):
+            for indexKey, symbolKey in enumerate(key):
                 if numbers == str(indexKey):
                     final += symbolKey
     return final    
@@ -233,8 +233,9 @@ def caesarS_insert(alpha_string, key):
 def caesarS(mode, message, key, final = "", alpha = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")):
     message = message.upper(); key = key.split()
     try: key[0] = int(key[0])
-    except: return ":: Only int numbers."
-    key[1] = key[1].upper()
+    except: return ":: Int number not found."
+    try: key[1] = key[1].upper()
+    except: return ":: String not found."
     alpha = caesarS_insert(caesarS_remove(alpha, key[1]), key[0])
     for symbol in message:
         if mode == 'E':
@@ -308,7 +309,8 @@ def doubleCifir(mode, message, key, final = ''):
 [keys[y][1] for y in range(len(keys)) if y in keys]]
         for i in range(2):
             for index in range(len(message)//2):
-                final += finalList[i][index]
+                try: final += finalList[i][index]
+                except: return ":: Key not found."
         return final
 
 ### Fence ###
@@ -622,8 +624,39 @@ def homophonic(mode, message, final = ""):
     return final
 
 ### Lattice ###
+def lattice_getKey(text):
+    while True:
+        keys = [randint(0,99) for _ in range(len(text))]
+        for number in keys:
+            switch = False
+            if keys.count(number) > 1:
+                switch = True; break
+        if switch == False:
+            return keys
+def lattice_create(squade, stringList, index = 0):
+    summ = '    '
+    for string in range(squade):
+        summ += str(string) + '   '
+    for string in range(squade):
+        summ += '\n'
+        for column in range(squade):
+            if index%squade == 0:
+                summ += str(index//squade) + ' | '
+            summ += stringList[index] + ' | '
+            index += 1
+    summ += '\n'
+    return summ
 def lattice(message):
-    pass
+    squade = 10
+    alphaList = [chr(x) for x in range(65,91)] + [chr(y) for y in range(97,123)]
+    stringList = [choice(alphaList) for _ in range(squade*squade)]
+    keyList = lattice_getKey(message)
+    keyList.sort()
+    for index, symbol in enumerate(message):
+        del stringList[keyList[index]]
+        stringList.insert(keyList[index],symbol)
+    return str(keyList) + '\n' + lattice_create(squade, stringList)
+
 
 ### Playfair ###
 def playfair(mode, message, final = ""):
