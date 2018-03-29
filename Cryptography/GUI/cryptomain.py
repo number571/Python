@@ -15,7 +15,6 @@ Config.set("graphics","resizable","0")
 Config.set("graphics","width","700")
 Config.set("graphics","height","500")
 
-from re import findall
 from cryptomod import *
 
 ciphers = (
