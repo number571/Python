@@ -26,66 +26,34 @@ class MainApp(App):
         if not switch: switch = 1
         else: switch = 0
 
-        vector_x = (
-            [self.button[x].text for x in (0,1,2)],
-            [self.button[x].text for x in (3,4,5)],
-            [self.button[x].text for x in (6,7,8)]
+        coordinate = (
+            (0,1,2),(3,4,5),(6,7,8), # X
+            (0,3,6),(1,4,7),(2,5,8), # Y
+            (0,4,8),(2,4,6),         # D
         )
 
-        vector_y = (
+        vector = (
+            [self.button[x].text for x in (0,1,2)],
+            [self.button[x].text for x in (3,4,5)],
+            [self.button[x].text for x in (6,7,8)],
+
             [self.button[y].text for y in (0,3,6)],
             [self.button[y].text for y in (1,4,7)],
-            [self.button[y].text for y in (2,5,8)]
-        )
-        
-        vector_d = (
+            [self.button[y].text for y in (2,5,8)],
+
             [self.button[d].text for d in (0,4,8)],
-            [self.button[d].text for d in (2,4,6)]
+            [self.button[d].text for d in (2,4,6)],
         )
 
         green = [0,1,0,1]
         win = False
 
-        for index in range(3):
-            if vector_x[index].count('X') == 3\
-            or vector_x[index].count('O') == 3:
+        for index in range(8):
+            if vector[index].count('X') == 3\
+            or vector[index].count('O') == 3:
                 win = True
-                if index == 0:
-                    for i in (0,1,2):
-                        self.button[i].color = green
-                elif index == 1:
-                    for i in (3,4,5):
-                        self.button[i].color = green
-                elif index == 2:
-                    for i in (6,7,8):
-                        self.button[i].color = green
-                break
-
-        for index in range(3):
-            if vector_y[index].count('X') == 3\
-            or vector_y[index].count('O') == 3:
-                win = True
-                if index == 0:
-                    for i in (0,3,6):
-                        self.button[i].color = green
-                elif index == 1:
-                    for i in (1,4,7):
-                        self.button[i].color = green
-                elif index == 2:
-                    for i in (2,5,8):
-                        self.button[i].color = green
-                break
-
-        for index in range(2):
-            if vector_d[index].count('X') == 3\
-            or vector_d[index].count('O') == 3:
-                win = True
-                if index == 0:
-                    for i in (0,4,8):
-                        self.button[i].color = green
-                elif index == 1:
-                    for i in (2,4,6):
-                        self.button[i].color = green
+                for i in coordinate[index]:
+                    self.button[i].color = green
                 break
 
         if win:
