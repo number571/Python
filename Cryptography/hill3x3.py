@@ -1,7 +1,7 @@
 from re import findall
 
 alpha = tuple("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-MatrixLength = 3; MatrixMod = 26
+MatrixLength = 3; MatrixMod = len(alpha)
 mainKey = "GYBNQKURP"
 
 # Проверка условий на ошибки
@@ -76,15 +76,17 @@ def getIMatr(algbr):
 
 if checkErrors(mainKey): 
     print(checkErrors(mainKey)); raise SystemExit
-
+    
 cryptMode = input("[E]ncrypt|[D]ecrypt: ").upper()
 if cryptMode not in ['E','D']:
     print("Error: mode is not Found"); raise SystemExit
-
+    
 startMessage = input("Write the message: ").upper()
+
 for symbol in startMessage:
     if symbol not in alpha:
         startMessage = startMessage.replace(symbol,'')
+        
 while len(startMessage) % MatrixLength != 0: startMessage += 'Z'
 
 # Основная функция
@@ -93,7 +95,8 @@ def encryptDecrypt(mode, message, key, final = ""):
     if mode == 'E':
         final = decode(MatrixMessage, MatrixKey)
     else:
-        deter = getDeter(MatrixKey); algbr = getAlgbr(deter)
+        algbr = getAlgbr(getDeter(MatrixKey))
         final = decode(MatrixMessage, getIMatr(algbr))
     return final
+
 print("Final message:", encryptDecrypt(cryptMode, startMessage, mainKey))
