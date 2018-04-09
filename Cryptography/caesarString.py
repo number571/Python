@@ -1,13 +1,13 @@
 cryptMode = input("[E]ncrypt|[D]ecrypt: ").upper()
 if cryptMode not in ['E','D']:
     print("Error: mode is not Found!"); raise SystemExit
-
+    
 alphaList = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 startMessage = input("Write the message: ").upper()
 
 try: numberKey = int(input("Write the number key: "))
 except ValueError: print("Error: only int number!"); raise SystemExit
-
+    
 stringKey = list(input("Write the string key: ").upper())
 
 def remove(alpha, string):
@@ -20,12 +20,11 @@ def remove(alpha, string):
 
 def insert(alpha_string):
     for index, symbol in enumerate(alpha_string[1]):
-        alpha_string[0].insert((numberKey+index)%26, symbol)
+        alpha_string[0].insert(index, symbol)
     return alpha_string[0]
 
 def encryptDecrypt(mode, message, key, final = ""):
     alpha = insert(remove(alphaList, stringKey))
-    print(alpha)
     for symbol in message:
         if mode == 'E':
             final += alpha[(alpha.index(symbol) + key)%26]
@@ -33,5 +32,4 @@ def encryptDecrypt(mode, message, key, final = ""):
             final += alpha[(alpha.index(symbol) - key)%26]
     return final
 
-message = encryptDecrypt(cryptMode, startMessage, numberKey)
-print("Final message:", message)
+print("Final message:", encryptDecrypt(cryptMode, startMessage, numberKey))
