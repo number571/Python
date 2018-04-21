@@ -90,7 +90,7 @@ for symbol in startMessage:
 while len(startMessage) % MatrixLength != 0: startMessage += 'Z'
 
 # Основная функция
-def encryptDecrypt(mode, message, key, final = ""):
+def encryptDecrypt(mode, message, key):
     MatrixMessage, MatrixKey = sliceto(message), sliceto(key)
     if mode == 'E':
         final = decode(MatrixMessage, MatrixKey)
