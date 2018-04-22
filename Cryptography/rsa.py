@@ -13,7 +13,7 @@ array.append("...")
 print("s:",array,'\n')
 
 # Простые числа
-p = 83; q = 113 # p = 3557; q = 2579
+p = 101; q = 53
 print("p = %d; q = %d"%(p,q))
 
 n = p * q # Произведение
@@ -31,7 +31,7 @@ array.append("...")
 print("e:",array)
 
 # Открытая экспонента
-e = 3 # Простое число && e < n
+e = 3 # Простое нечётное число не имеющее общих делителей с f(n)
 print("e =", e,'\n')
 
 # Подбор натурального числа k #
@@ -43,8 +43,8 @@ for k in range(1,25):
 array.append("...")
 print("k:",array)
 
-# Секретная экспонента
 k = 2 # Натуральное число
+# Секретная экспонента
 d = int((1 + k * Fn) / e)
 
 print("k = %d; d = %d\n"%(k,d))
@@ -75,24 +75,20 @@ print("Dm =", Dm)
 
 '''
 dictCodes = {chr(value+55):value for value in range(10,36)}
-
 message = "Hello World".upper()
 for symbol in message:
 	if symbol not in [chr(x) for x in range(65, 91)]:
 		message = message.replace(symbol,'')
 print("message =", message)
-
 codes = []
 for symbol in message:
 	codes.append(dictCodes[symbol])
 print("codes =", codes,'\n')
-
 # Шифрование
 encrypt = []
 for m in codes:
 	encrypt.append(m ** e % n)
 print("encrypt =", encrypt)
-
 # Расшифрование
 codes = []
 for c in encrypt:
