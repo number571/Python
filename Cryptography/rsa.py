@@ -60,8 +60,7 @@ def encryptDecrypt(key, message):
 def choiceMode(mode):
 	if mode == 'G':
 		keys = generateKeys(50,500,25)
-		return \
-		"Public_key: [%d.%d]\nPrivate_key: [%d.%d]"%\
+		return "Public_key: [%d.%d]\nPrivate_key: [%d.%d]"%\
 		(keys[0][0], keys[0][1], keys[1][0], keys[1][1])
 	else:
 		try:
