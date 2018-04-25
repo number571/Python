@@ -68,7 +68,7 @@ def choiceMode(mode):
 			key = [int(k) for k in input("Write the key: ").split(".")]
 		except KeyboardInterrupt: 
 			print(); raise SystemExit
-		return encryptDecrypt(key, message)
+		return "Final message: " + str(encryptDecrypt(key, message))
 
 while True:
 	try:
