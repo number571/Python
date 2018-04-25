@@ -53,28 +53,34 @@ def generateKeys(minP, maxP, maxN):
 	return ([pubExp,n], [privExp,n])
 
 # Шифрование / Расшифрование #
-def encryptDecrypt(key, message):
+def encryptDecrypt(message, key):
 	return message ** key[0] % key[1]
 
 # Проверка выборочной опции #
-def choiceMode(mode):
+def choiceMode(mode, *args):
 	if mode == 'G':
-		keys = generateKeys(50,500,25)
-		return "Public_key: [%d.%d]\nPrivate_key: [%d.%d]"%\
-		(keys[0][0], keys[0][1], keys[1][0], keys[1][1])
-	else:
-		try:
-			message = int(input("Write the number: "))
-			key = [int(k) for k in input("Write the key: ").split(".")]
-		except KeyboardInterrupt: 
-			print(); raise SystemExit
-		return "Final message: %d"%(encryptDecrypt(key, message))
+		return generateKeys(50,500,25)
+	elif mode == 'C':
+		return encryptDecrypt(args[0], args[1])
 
 while True:
 	try:
 		cryptMode = input("[G]enerate_[C]ipher: ").upper()
 	except KeyboardInterrupt: 
 		print(); raise SystemExit
-	if cryptMode not in ['G','C']:
+
+	if cryptMode == 'G':
+		pub, priv = choiceMode('G')
+		print("Public_key: [%d.%d]\nPrivate_key: [%d.%d]\n"%
+		(pub[0], pub[1], priv[0], priv[1]))
+
+	elif cryptMode == 'C':
+		try:
+			message = int(input("Write the number: "))
+			key = [int(k) for k in input("Write the key: ").split(".")]
+		except KeyboardInterrupt: 
+			print(); raise SystemExit
+		print("Final message: %d\n"%(choiceMode('C', message, key)))
+
+	else:
 		print("Error: mode is not Found!"); raise SystemExit
-	print(choiceMode(cryptMode),'\n')
