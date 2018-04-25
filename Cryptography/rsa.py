@@ -78,7 +78,7 @@ while True:
 		try:
 			message = int(input("Write the number: "))
 			key = [int(k) for k in input("Write the key: ").split(".")]
-		except KeyboardInterrupt: 
+		except (KeyboardInterrupt, ValueError): 
 			print(); raise SystemExit
 		print("Final message: %d\n"%(choiceMode('C', message, key)))
 
