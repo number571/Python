@@ -1,5 +1,5 @@
 codeMode = input("[E]ncode|[D]ecode: ").upper()
-if cryptMode not in ['E','D']:
+if codeMode not in ['E','D']:
 	print("Error: mode is not Found!"); raise SystemExit
 startMessage = input("Write the message: ").upper()
 codes = {
