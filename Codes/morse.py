@@ -17,7 +17,7 @@ codes = {
 	'L':'.-..',	'Y':'-.--',
 	'M':'--',	'Z':'--..',
 }
-def encryptDecrypt(mode, message, final = ""):
+def encodeDecode(mode, message, final = ""):
 	if mode == 'E':
 		for symbol in message:
 			if symbol not in codes:
@@ -31,4 +31,4 @@ def encryptDecrypt(mode, message, final = ""):
 				if code == codes[symbol]:
 					final += symbol
 	return final
-print("Final message:",encryptDecrypt(cryptMode, startMessage))
+print("Final message:",encodeDecode(cryptMode, startMessage))
