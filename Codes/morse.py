@@ -1,4 +1,4 @@
-cryptMode = input("[E]ncode|[D]ecode: ").upper()
+codeMode = input("[E]ncode|[D]ecode: ").upper()
 if cryptMode not in ['E','D']:
 	print("Error: mode is not Found!"); raise SystemExit
 startMessage = input("Write the message: ").upper()
@@ -31,4 +31,4 @@ def encodeDecode(mode, message, final = ""):
 				if code == codes[symbol]:
 					final += symbol
 	return final
-print("Final message:",encodeDecode(cryptMode, startMessage))
+print("Final message:",encodeDecode(codeMode, startMessage))
