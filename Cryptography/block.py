@@ -1,63 +1,105 @@
 from re import findall
 
-BLOCK = 3
-
 def regular(text): 
     template = r".{"+str(BLOCK)+"}"
     return findall(template, text)
 
-mes, m = "helloworld", []
-while len(mes) % BLOCK != 0: mes += '0'
-for three in regular(mes): m.append(list(three))
-print(m)
+def addition(text):
+	while len(text) % BLOCK != 0: 
+		text += '0'
+	return text
 
-for block in range(len(m)):
-	for cell in range(len(m[block])):
-		m[block][cell] = ord(m[block][cell])
-print(m,'\n')
+def toMatrix(text, matrix = []):
+	for three in regular(text): 
+		matrix.append(list(three))
+	return matrix
 
-key = list("j@4")
-for cell in range(len(key)):
-	key[cell] = ord(key[cell])
-mainKey = key[0]
-for index in range(1,BLOCK): mainKey ^= key[index]
+def createMatrix(matrix):
+	final = []
+	for _ in range(len(matrix)): 
+		final.append([])
+	return final
 
-vector = list("#fw")
-for cell in range(len(vector)):
-	vector[cell] = ord(vector[cell])
-vecInit = vector[0]
-for index in range(1,BLOCK): vecInit ^= vector[index]
+def encodeMatrix(matrix):
+	final = createMatrix(matrix)
+	for block in range(len(matrix)):
+		for cell in range(len(matrix[block])):
+			final[block].append(ord(matrix[block][cell]))
+	return final
 
-e = []
-for _ in range(len(mes)//BLOCK): e.append([])
-for cell in range(len(m[0])):
-	e[0].append(m[0][cell] ^ vecInit ^ mainKey)
-for block in range(1,len(m)):
-	vecInitAfter = e[block-1][0]
-	for index in range(1, BLOCK): vecInitAfter ^= e[block-1][index]
-	for cell in range(len(m[block])):
-		e[block].append(m[block][cell] ^ vecInitAfter ^ mainKey)
-print(e)
+def decodeMatrix(matrix):
+	final = createMatrix(matrix)
+	for block in range(len(matrix)):
+		for cell in range(len(matrix[block])):
+			final[block].append(chr(matrix[block][cell]))
+	return final
 
-encrypt = []
-for _ in range(len(mes)//BLOCK): encrypt.append([])
-for block in range(len(e)):
-	for cell in range(len(e[block])):
-		encrypt[block].append(chr(e[block][cell]))
-print(encrypt,'\n')
+def encodeVector(vector):
+	for cell in range(len(vector)):
+		vector[cell] = ord(vector[cell])
+	return vector
 
-d = []
-for _ in range(len(e)): d.append([])
-for cell in range(len(e[0])):
-	d[0].append(e[0][cell] ^ vecInit ^ mainKey)
-for block in range(1,len(e)):
-	vecInitAfter = e[block-1][0]
-	for index in range(1, BLOCK): vecInitAfter ^= e[block-1][index]
-	for cell in range(len(e[block])):
-		d[block].append(e[block][cell] ^ vecInitAfter ^ mainKey)
-print(d)
+def toVectorXOR(text):
+	text = encodeVector(list(text))
+	vecXOR = text[0]
+	for index in range(1,BLOCK): 
+		vecXOR ^= text[index]
+	return vecXOR
 
-for block in range(len(d)):
-	for cell in range(len(d[block])):
-		d[block][cell] = chr(d[block][cell])
-print(d)
+def toString(matrix, final = ""):
+	for block in range(len(matrix)):
+		for cell in range(len(matrix[block])):
+			final += matrix[block][cell]
+	return final
+
+def encrypt(message, vector, key, final = []):
+	matrix = encodeMatrix(toMatrix(addition(message)))
+	key, vector = toVectorXOR(key), toVectorXOR(vector)
+	for _ in range(len(matrix)): final.append([])
+	for cell in range(len(matrix[0])):
+		final[0].append(matrix[0][cell] ^ vector ^ key)
+	for block in range(1,len(matrix)):
+		vecInit = final[block-1][0]
+		for index in range(1, BLOCK): vecInit ^= final[block-1][index]
+		for cell in range(len(matrix[block])):
+			final[block].append(matrix[block][cell] ^ vecInit ^ key)
+	return final
+
+def decrypt(matrix, vector, key, final = []):
+	key, vector = toVectorXOR(key), toVectorXOR(vector)
+	for _ in range(len(matrix)): final.append([])
+	for cell in range(len(matrix[0])):
+		final[0].append(matrix[0][cell] ^ vector ^ key)
+	for block in range(1,len(matrix)):
+		vecInitAfter = matrix[block-1][0]
+		for index in range(1, BLOCK): vecInitAfter ^= matrix[block-1][index]
+		for cell in range(len(matrix[block])):
+			final[block].append(matrix[block][cell] ^ vecInitAfter ^ key)
+	return toString(decodeMatrix(final))
+
+try:
+	cryptMode = input("[E]ncrypt|[D]ecrypt: ").upper()
+	if cryptMode not in ['E','D']:
+		print("Error: mode is not Found"); raise SystemExit
+except KeyboardInterrupt: 
+	print(); raise SystemExit
+
+try:
+	BLOCK = int(input("Set BLOCK size: "))
+	startMessage = input("Write the message: ")
+	vectorInit = input("Write the vector init: ")
+	mainKey = input("Write the main key: ")
+except KeyboardInterrupt: 
+	print(); raise SystemExit
+except ValueError: 
+	print("Error: BLOCK is int value"); raise SystemExit
+
+def encryptDecrypt(mode, message, vector, key):
+	if mode == 'E':
+		return encrypt(message, vector, key)
+	else:
+		try:
+			return decrypt(eval(message), vector, key)
+		except NameError: 
+			print("Error: message is not list"); raise SystemExit
+print("Final message:",encryptDecrypt(cryptMode, startMessage, vectorInit, mainKey))
