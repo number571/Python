@@ -55,25 +55,25 @@ def encrypt(message, vector, key, final = []):
 	matrix = encodeMatrix(toMatrix(addition(message)))
 	key, vector = toVectorXOR(key), toVectorXOR(vector)
 	for _ in range(len(matrix)): final.append([])
-	for cell in range(len(matrix[0])):
+	for cell in range(BLOCK):
 		final[0].append(matrix[0][cell] ^ vector ^ key)
 	for block in range(1,len(matrix)):
 		vecInit = final[block-1][0]
 		for index in range(1, BLOCK): vecInit ^= final[block-1][index]
-		for cell in range(len(matrix[block])):
+		for cell in range(BLOCK):
 			final[block].append(matrix[block][cell] ^ vecInit ^ key)
 	return final
 
 def decrypt(matrix, vector, key, final = []):
 	key, vector = toVectorXOR(key), toVectorXOR(vector)
 	for _ in range(len(matrix)): final.append([])
-	for cell in range(len(matrix[0])):
+	for cell in range(BLOCK):
 		final[0].append(matrix[0][cell] ^ vector ^ key)
 	for block in range(1,len(matrix)):
-		vecInitAfter = matrix[block-1][0]
-		for index in range(1, BLOCK): vecInitAfter ^= matrix[block-1][index]
-		for cell in range(len(matrix[block])):
-			final[block].append(matrix[block][cell] ^ vecInitAfter ^ key)
+		vecInit = matrix[block-1][0]
+		for index in range(1, BLOCK): vecInit ^= matrix[block-1][index]
+		for cell in range(BLOCK):
+			final[block].append(matrix[block][cell] ^ vecInit ^ key)
 	return toString(decodeMatrix(final))
 
 try:
