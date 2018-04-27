@@ -67,7 +67,7 @@ def getKeys(name, pub, priv):
 # Передача открытого сообщения и цифровой подписи #
 
 # Алиса генерирует ключи
-pubA, privA = generateKeys(125,250,50)
+pubA, privA = generateKeys(75,150,25)
 
 # Вывод публичных и приватных ключей
 print(getKeys("Alice", pubA, privA))
