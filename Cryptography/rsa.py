@@ -44,8 +44,8 @@ def generateKeys(minP, maxP, maxN):
 
 	n, Fn = p*q, (p-1)*(q-1)
 	try:
-		pubExp = getPubExp(2, maxN, Fn)[0]
-		numK = getNumK(2, maxN, Fn, pubExp)[0]
+		pubExp = choice(getPubExp(2, maxN, Fn))
+		numK = choice(getNumK(2, maxN, Fn, pubExp))
 		privExp = getPrivExp(pubExp, n, Fn, numK)
 
 	except: return generateKeys(minP, maxP, maxN)
