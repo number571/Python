@@ -92,7 +92,7 @@ try:
 except KeyboardInterrupt: 
 	print(); raise SystemExit
 except ValueError: 
-	print("Error: BLOCK is int value"); raise SystemExit
+	print("Error: BLOCK is not int value"); raise SystemExit
 
 def encryptDecrypt(mode, message, vector, key):
 	if mode == 'E':
