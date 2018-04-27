@@ -44,8 +44,8 @@ def generateKeys(minP, maxP, maxN):
 
 	n, Fn = p*q, (p-1)*(q-1)
 	try:
-		pubExp = getPubExp(2, maxN, Fn)[0]
-		numK = getNumK(2, maxN, Fn, pubExp)[0]
+		pubExp = choice(getPubExp(2, maxN, Fn))
+		numK = choice(getNumK(2, maxN, Fn, pubExp))
 		privExp = getPrivExp(pubExp, n, Fn, numK)
 
 	except: return generateKeys(minP, maxP, maxN)
@@ -90,8 +90,8 @@ if mAlice == _mAlice: print("Signature is True")
 # Передача зашифрованного сообщения и цифровой подписи #
 
 # Алиса и Боб генерируют ключи
-pubA, privA = generateKeys(125,250,50)
-pubB, privB = generateKeys(250,500,50)
+pubA, privA = generateKeys(75,150,25)
+pubB, privB = generateKeys(150,225,25)
 
 # Вывод публичных и приватных ключей
 print(getKeys("Alice", pubA, privA))
