@@ -14,8 +14,7 @@ def toMatrix(text, matrix = []):
 		matrix.append(list(three))
 	return matrix
 
-def createMatrix(matrix):
-	final = []
+def createMatrix(matrix, final = []):
 	for _ in range(len(matrix)): 
 		final.append([])
 	return final
