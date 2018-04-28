@@ -94,21 +94,18 @@ except KeyboardInterrupt:
 try:
 	BLOCK = int(input("Set BLOCK size: "))
 	startMessage = input("Write the message: ")
-	mainKey = input("Write the main key: ")
+	keyVectInit = input("Write the key & vector init: ").split()
 except KeyboardInterrupt: 
 	print(); raise SystemExit
 except ValueError: 
 	print("Error: BLOCK is not int value"); raise SystemExit
 
-def encryptDecrypt(mode, message, key):
+def encryptDecrypt(mode, message, key_vector):
 	if mode == 'E':
-		vector = getVectorInit()
-		print("Installed vector init:", vector)
-		return encrypt(message, vector, key)
+		return encrypt(message, key_vector[1], key_vector[0])
 	else:
 		try:
-			vector = input("Write the vector init: ")
-			return decrypt(eval(message), vector, key)
+			return decrypt(eval(message), key_vector[1], key_vector[0])
 		except NameError: 
 			print("Error: message is not list"); raise SystemExit
-print("Final message:",encryptDecrypt(cryptMode, startMessage, mainKey))
+print("Final message:",encryptDecrypt(cryptMode, startMessage, keyVectInit))
