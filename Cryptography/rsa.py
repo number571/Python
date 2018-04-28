@@ -38,7 +38,7 @@ def getPrivExp(e, n, Fn, k):
 # Генерация ключей #
 def generateKeys(minP, maxP, maxN):
 	primes = getPrime(minP,maxP)
-	
+
 	p, q = choice(primes), choice(primes)
 	if p == q: return generateKeys(minP, maxP, maxN)
 
@@ -49,6 +49,8 @@ def generateKeys(minP, maxP, maxN):
 		privExp = getPrivExp(pubExp, n, Fn, numK)
 
 	except: return generateKeys(minP, maxP, maxN)
+
+	if pubExp > privExp: return generateKeys(minP, maxP, maxN)
 
 	return ([pubExp,n], [privExp,n])
 
@@ -63,7 +65,7 @@ while True:
 		print(); raise SystemExit
 
 	if cryptMode == 'G':
-		pub, priv = generateKeys(75,150,25)
+		pub, priv = generateKeys(50,500,25)
 		print("Public_key: [%d.%d]\nPrivate_key: [%d.%d]\n"%
 		(pub[0], pub[1], priv[0], priv[1]))
 
