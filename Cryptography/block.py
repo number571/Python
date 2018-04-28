@@ -1,4 +1,12 @@
 from re import findall
+from random import choice
+
+def getVectorInit(final = ""):
+	alpha = tuple("1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+abcdefghijklmnopqrstuvwxyz~!@#$%^&*()_-+=?<>,.;:[]}{'")
+	for index in range(BLOCK):
+		final += choice(alpha)
+	return final
 
 def regular(text): 
     template = r".{"+str(BLOCK)+"}"
@@ -86,19 +94,21 @@ except KeyboardInterrupt:
 try:
 	BLOCK = int(input("Set BLOCK size: "))
 	startMessage = input("Write the message: ")
-	vectorInit = input("Write the vector init: ")
 	mainKey = input("Write the main key: ")
 except KeyboardInterrupt: 
 	print(); raise SystemExit
 except ValueError: 
 	print("Error: BLOCK is not int value"); raise SystemExit
 
-def encryptDecrypt(mode, message, vector, key):
+def encryptDecrypt(mode, message, key):
 	if mode == 'E':
+		vector = getVectorInit()
+		print("Installed vector init:", vector)
 		return encrypt(message, vector, key)
 	else:
 		try:
+			vector = input("Write the vector init: ")
 			return decrypt(eval(message), vector, key)
 		except NameError: 
 			print("Error: message is not list"); raise SystemExit
-print("Final message:",encryptDecrypt(cryptMode, startMessage, vectorInit, mainKey))
+print("Final message:",encryptDecrypt(cryptMode, startMessage, mainKey))
