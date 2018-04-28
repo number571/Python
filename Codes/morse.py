@@ -25,8 +25,7 @@ def encodeDecode(mode, message, final = ""):
 		for symbol in message:
 			final += codes[symbol] + ' '
 	else:
-		message = message.split(' ')
-		for code in message:
+		for code in message.split():
 			for symbol in codes:
 				if code == codes[symbol]:
 					final += symbol
