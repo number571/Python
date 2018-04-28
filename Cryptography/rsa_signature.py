@@ -50,6 +50,8 @@ def generateKeys(minP, maxP, maxN):
 
 	except: return generateKeys(minP, maxP, maxN)
 
+	if pubExp > privExp: return generateKeys(minP, maxP, maxN)
+
 	return ([pubExp,n], [privExp,n])
 
 # Шифрование / Расшифрование
@@ -67,7 +69,7 @@ def getKeys(name, pub, priv):
 # Передача открытого сообщения и цифровой подписи #
 
 # Алиса генерирует ключи
-pubA, privA = generateKeys(75,150,25)
+pubA, privA = generateKeys(125,250,50)
 
 # Вывод публичных и приватных ключей
 print(getKeys("Alice", pubA, privA))
@@ -103,14 +105,14 @@ mAlice = 111
 # Создание цифровой подписи со стороны Алисы
 sAlice = encryptDecrypt(mAlice, privA) 
 
-# Передача публичного ключа Алисе
+# Передача публичного ключа от Боба Алисе
 pubB = [pubB[0], pubB[1]]
 
 # Шифрование сообщения и подписи публичным ключом Боба
 CmAlice = encryptDecrypt(mAlice, pubB)
 CsAlice = encryptDecrypt(sAlice, pubB)
 
-# Передача зашифрованных сообщения и подписи Бобу
+# Передача зашифрованного сообщения и подписи Бобу
 CsmAlice = [CmAlice, CsAlice]
 
 # Расшифрование сообщения и подписи Алисы
