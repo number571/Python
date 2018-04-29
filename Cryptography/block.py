@@ -1,12 +1,4 @@
 from re import findall
-from random import choice
-
-def getVectorInit(final = ""):
-	alpha = tuple("1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ\
-abcdefghijklmnopqrstuvwxyz~!@#$%^&*()_-+=?<>,.;:[]}{'")
-	for index in range(BLOCK):
-		final += choice(alpha)
-	return final
 
 def regular(text): 
     template = r".{"+str(BLOCK)+"}"
@@ -22,7 +14,8 @@ def toMatrix(text, matrix = []):
 		matrix.append(list(three))
 	return matrix
 
-def createMatrix(matrix, final = []):
+def createMatrix(matrix):
+	final = []
 	for _ in range(len(matrix)): 
 		final.append([])
 	return final
@@ -59,10 +52,10 @@ def toString(matrix, final = ""):
 			final += matrix[block][cell]
 	return final
 
-def encrypt(message, vector, key, final = []):
+def encrypt(message, vector, key):
 	matrix = encodeMatrix(toMatrix(addition(message)))
 	key, vector = toVectorXOR(key), toVectorXOR(vector)
-	for _ in range(len(matrix)): final.append([])
+	final = createMatrix(matrix)
 	for cell in range(BLOCK):
 		final[0].append(matrix[0][cell] ^ vector ^ key)
 	for block in range(1,len(matrix)):
@@ -72,9 +65,9 @@ def encrypt(message, vector, key, final = []):
 			final[block].append(matrix[block][cell] ^ vecInit ^ key)
 	return final
 
-def decrypt(matrix, vector, key, final = []):
+def decrypt(matrix, vector, key):
 	key, vector = toVectorXOR(key), toVectorXOR(vector)
-	for _ in range(len(matrix)): final.append([])
+	final = createMatrix(matrix)
 	for cell in range(BLOCK):
 		final[0].append(matrix[0][cell] ^ vector ^ key)
 	for block in range(1,len(matrix)):
