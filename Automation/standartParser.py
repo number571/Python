@@ -9,6 +9,3 @@ result = re.findall(template, html)
 
 for href in result:
 	print(href)
-
-# with open("file.html",'w') as file:
-# 	file.write(html)
