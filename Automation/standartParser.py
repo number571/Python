@@ -1,11 +1,11 @@
-import urllib.request, re
-siteURL = "http://"+input("http://")
+from urllib.request import urlopen
+from re import findall
 
-with urllib.request.urlopen(siteURL) as url:
-	html = url.read().decode('cp1251')
+def get_link(text):
+	pattern = r"href\s*=\s*['\"]([^'\"]+)"
+	return findall(pattern, text)
 
-template = r"href\s?=\s?['\"]([^'\"]+)"
-result = re.findall(template, html)
+with urlopen("https://www.google.com") as page:
+	html = page.read().decode()
 
-for href in result:
-	print(href)
+[print(x) for x in get_link(html)]
