@@ -3,7 +3,10 @@ from random import randint
 message = input("Write the message: ")
 length = len(message)
 
-matrixLength = int(input("Matrix length: "))
+try: matrixLength = int(input("Matrix length: "))
+except ValueError: 
+    print("Error: only int number")
+    raise SystemExit
 matrixSquare = matrixLength ** 2
 
 divF = length / matrixSquare
