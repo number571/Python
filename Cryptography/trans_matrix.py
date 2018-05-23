@@ -3,6 +3,10 @@ from random import randint
 message = input("Write the message: ")
 length = len(message)
 
+if not length:
+    print("Error: message is not found")
+    raise SystemExit
+
 try: matrixLength = int(input("Matrix length: "))
 except ValueError: 
     print("Error: only int number")
@@ -32,8 +36,7 @@ def getMatrix(slices):
             index += matrixLength
     return slices
 
-def getTransMatrix(matrixes):
-    trans_matrix = []
+def getTransMatrix(matrixes, trans_matrix = []):
     for matrix in range(QUAN):
         temp_matrix = []
         for _ in range(matrixLength):
