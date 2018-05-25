@@ -1,4 +1,4 @@
-m = 65; n = 91; length = n - m
+m = 32; n = 127; length = n - m
 dictN = {x-m+1 : chr(x) for x in range(m,n)}
 dictC = {chr(x) : x-m+1 for x in range(m,n)}
 
@@ -7,7 +7,7 @@ if cryptMode not in ['E','D']:
     print("Error: mode is not found")
     raise SystemExit
 
-startMessage = input("Write the message: ").upper()
+startMessage = input("Write the message: ")
 mainKey = int(input("Write the key: "))
 for symbol in startMessage:
     if symbol not in [chr(x) for x in range(m,n)]:
@@ -17,14 +17,14 @@ def encrypt(message, key, result = ""):
     for index, symbol in enumerate(message):
         pos = len(message) - index
         result += dictN[(dictC[symbol]+(pos*key)+key)%length+1]
-        key = sumAll(message[:len(message)-pos+1])%26
+        key = sumAll(message[:len(message)-pos+1])%(n-m)
     return result
 
 def decrypt(message, key, result = ""):
     for index, symbol in enumerate(message):
         pos = len(message) - index
         result += dictN[(dictC[symbol]-(pos*key)-key-2)%length+1]
-        key = sumAll(result)%26
+        key = sumAll(result)%(n-m)
     return result
 
 def sumAll(message, summ = 0):
