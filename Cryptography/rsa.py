@@ -58,7 +58,7 @@ def generateKeys(minP, maxP, maxN):
 def encryptDecrypt(message, key):
     return powerWithModule(message,key[0],key[1])
 
-# Функция для ускорения возведения в степерь по модулю #
+# Функция для ускорения возведения в степень по модулю #
 def powerWithModule(message, power, mod, result = 1):
     for _ in range(power):
         result = result * message % mod
