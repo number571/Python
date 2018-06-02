@@ -1,7 +1,7 @@
 head = lambda x: x[0]
 tail = lambda x: x[1:len(x)]
 def mapp(func, listS, final = []):
-	if not len(listS):
+	if not listS:
 		return final
 	else:
 		final.append(func(head(listS)))
