@@ -1,3 +1,5 @@
+# Cipher created from: https://github.com/pravdakotchestno
+
 m = 32; n = 127; length = n - m
 dictN = {x-m+1 : chr(x) for x in range(m,n)}
 dictC = {chr(x) : x-m+1 for x in range(m,n)}
