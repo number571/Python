@@ -1,4 +1,5 @@
-head, tail = lambda x: x[0], lambda x: x[1:len(x)]
+head = lambda x: x[0]
+tail = lambda x: x[1:len(x)]
 def scanl(func, num, List) -> list:
     if not List: return [num]
     else: return [num] + scanl(func, func(num, head(List)), tail(List))
