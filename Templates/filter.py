@@ -1,10 +1,6 @@
-head = lambda x: x[0]
-tail = lambda x: x[1:len(x)]
-def filter(func, listS, final = []):
-    if not listS:
-        return final
-    else:
-        if func(head(listS)):
-            final.append(head(listS))
-        return filter(func, tail(listS))
+head, tail = lambda x: x[0], lambda x: x[1:len(x)]
+def filter(func, List, final = []):
+    if not List: return List
+    elif func(head(List)): return [head(List)] + filter(func, tail(List))
+    else: return filter(func, tail(List))
 print(filter(lambda x: x > 2, [1,2,3,4,5]))
