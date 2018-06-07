@@ -1,4 +1,5 @@
-head, tail = lambda x: x[0], lambda x: x[1:len(x)]
+head = lambda x: x[0]
+tail = lambda x: x[1:len(x)]
 def map(func, List) -> list:
     if not List: return List
     else: return [func(head(List))] + map(func, tail(List))
