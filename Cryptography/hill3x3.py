@@ -1,18 +1,19 @@
 from re import findall
 
-alpha = tuple("ABCDEFGHIJKLMNOPQRSTUVWXYZ ,.")
+alpha = tuple("ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890")
 MatrixLength = 3; MatrixMod = len(alpha)
+MatrixSquare = MatrixLength * MatrixLength
 
 # Проверка условий на ошибки
 def checkErrors(key):
-    if len(key) != 9: return "Error: len(key) != 9"
+    if len(key) != MatrixSquare: return "Error: len(key) != %d"%MatrixSquare
     elif not getDeter(sliceto(key)): return "Error: det(Key) = 0"
     elif not getDeter(sliceto(key)) % MatrixMod: return "Error: det(Key) mod len(alpha) = 0"
     else: return None
 
 # Регулярное выражение - 3 символа сообщения
 def regular(text): 
-    template = r".{3}"
+    template = r".{%d}"%MatrixLength
     return findall(template, text)
 
 # Кодирование символов в матрице
@@ -68,10 +69,11 @@ def getDeter(matrix):
 
 # Получение алгебраических дополнений
 def getAlgbr(det):
-    algbrs = [0 for _ in range(9)]; index = 0
-    for string in range(3):
-        for column in range(3):
-            algbrs[index] = algebratic(string, column, det); index += 1
+    algbrs = [0 for _ in range(MatrixSquare)]; index = 0
+    for string in range(MatrixLength):
+        for column in range(MatrixLength):
+            algbrs[index] = algebratic(string, column, det)
+            index += 1
     return algbrs
 
 # Получение обратной матрицы
