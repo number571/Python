@@ -27,19 +27,21 @@ def encode(matrix):
 def decode(matrixM, matrixK, message = ""):
     matrixF = []
     for z in range(len(matrixM)):
-        temp = [0,0,0]
+        temp = [0 for _ in range(MatrixLength)]
         for x in range(MatrixLength):
             for y in range(MatrixLength):
                 temp[x] += matrixK[x][y] * matrixM[z][y]
             temp[x] = alpha[temp[x] % MatrixMod]
         matrixF.append(temp)
-    for string in matrixF: message += "".join(string)
+    for string in matrixF: 
+    	message += "".join(string)
     return message
 
 # Создаёт матрицу по три символа
 def sliceto(text): 
     matrix = []
-    for three in regular(text): matrix.append(list(three))
+    for three in regular(text): 
+    	matrix.append(list(three))
     return encode(matrix)
 
 # Нахождение обратного определителя матрицы
@@ -54,8 +56,8 @@ def algebratic(x, y, det):
     matrix.remove(matrix[x])
     for z in range(2):
         matrix[z].remove(matrix[z][y])
-    iM = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-    return (pow(-1, x + y) * iM * iDet(det)) % MatrixMod
+    det2x2 = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+    return (pow(-1, x + y) * det2x2 * iDet(det)) % MatrixMod
 
 # Получение определителя матрицы
 def getDeter(matrix):
@@ -68,8 +70,8 @@ def getDeter(matrix):
     (matrix[1][2] * matrix[2][1] * matrix[0][0])
 
 # Получение алгебраических дополнений
-def getAlgbr(det):
-    algbrs = [0 for _ in range(MatrixSquare)]; index = 0
+def getAlgbr(det, index = 0):
+    algbrs = [0 for _ in range(MatrixSquare)]
     for string in range(MatrixLength):
         for column in range(MatrixLength):
             algbrs[index] = algebratic(string, column, det)
@@ -86,19 +88,22 @@ def getIMatr(algbr):
 
 cryptMode = input("[E]ncrypt|[D]ecrypt: ").upper()
 if cryptMode not in ['E','D']:
-    print("Error: mode is not Found"); raise SystemExit
+    print("Error: mode is not Found")
+    raise SystemExit
     
 startMessage = input("Write the message: ").upper()
 mainKey = input("Write the key: ").upper()
 
 if checkErrors(mainKey): 
-    print(checkErrors(mainKey)); raise SystemExit
+    print(checkErrors(mainKey))
+    raise SystemExit
 
 for symbol in startMessage:
     if symbol not in alpha:
         startMessage = startMessage.replace(symbol,'')
         
-while len(startMessage) % MatrixLength != 0: startMessage += startMessage[-1]
+while len(startMessage) % MatrixLength != 0: 
+	startMessage += startMessage[-1]
 
 # Основная функция
 def encryptDecrypt(mode, message, key):
