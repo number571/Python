@@ -5,6 +5,10 @@ if cryptMode not in ['E','D']:
 alphaList = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 startMessage = input("Write the message: ").upper()
 
+for symbol in startMessage:
+    if symbol not in alphaList:
+        startMessage = startMessage.replace(symbol,"")
+
 try: numberKey = int(input("Write the number key: "))
 except ValueError: print("Error: only int number!"); raise SystemExit
     
@@ -23,13 +27,20 @@ def insert(alpha_string):
         alpha_string[0].insert(index, symbol)
     return alpha_string[0]
 
+def replace(alpha, key):
+    while key > 0:
+        alpha.insert(0,alpha[-1])
+        del alpha[-1]
+        key -= 1
+    return alpha
+
 def encryptDecrypt(mode, message, key, final = ""):
-    alpha = insert(remove(alphaList, stringKey))
+    alphaS = [x for x in alphaList]
+    alphaC = replace(insert(remove(alphaList, stringKey)),key)
     for symbol in message:
         if mode == 'E':
-            final += alpha[(alpha.index(symbol) + key)%26]
+            final += alphaC[alphaS.index(symbol)]
         else: 
-            final += alpha[(alpha.index(symbol) - key)%26]
+            final += alphaS[alphaC.index(symbol)]
     return final
-
 print("Final message:", encryptDecrypt(cryptMode, startMessage, numberKey))
