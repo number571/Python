@@ -56,7 +56,7 @@ def generateKeys(minP, maxP, maxN):
 
 # Шифрование / Расшифрование
 def encryptDecrypt(message, key):
-	return message ** key[0] % key[1]
+	return pow(message,key[0],key[1])
 
 # Вывод ключей персонажа
 def getKeys(name, pub, priv):
@@ -92,8 +92,8 @@ if mAlice == _mAlice: print("Signature is True")
 # Передача зашифрованного сообщения и цифровой подписи #
 
 # Алиса и Боб генерируют ключи
-pubA, privA = generateKeys(75,150,25)
-pubB, privB = generateKeys(150,225,25)
+pubA, privA = generateKeys(500,1000,25)
+pubB, privB = generateKeys(1000,1500,25)
 
 # Вывод публичных и приватных ключей
 print(getKeys("Alice", pubA, privA))
