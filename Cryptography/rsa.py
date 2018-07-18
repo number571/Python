@@ -56,14 +56,7 @@ def generateKeys(minP, maxP, maxN):
 
 # Шифрование / Расшифрование #
 def encryptDecrypt(message, key):
-    return powerWithModule(message,key[0],key[1])
-
-# Function from: https://github.com/pravdakotchestno
-# Функция для ускорения возведения в степень по модулю #
-def powerWithModule(message, power, mod, result = 1):
-    for _ in range(power):
-        result = result * message % mod
-    return result
+    return pow(message, key[0], key[1])
 
 while True:
     try:
